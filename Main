@@ -1,0 +1,22 @@
+import java.sql.*;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        String sql = "SELECT * FROM student where id = 1;";
+        String url = "jdbc:postgresql://localhost:5432/Test"; // jdbc potem jaki db i adres z portem
+        String user = "postgres";
+        String password = "!!!!!!!!";
+        Connection connection = DriverManager.getConnection(url,user,password);
+
+        // pointer na nic nie wskazuje przed pierwszym nextem a wiec chociaz raz trzeba nim strzelic
+        //prepared statement zawsze lepszy niz nie prepared bo mniej problemow
+        Statement statement = connection.createStatement();
+        ResultSet set = statement.executeQuery(sql);
+        set.next();
+        System.out.println(set.getString("name"));//po nazwie kolumny albo id chyb a no i git jest
+        System.out.println(set.getString(2));//po id lini
+        connection.close();
+    }
+}
